@@ -4,10 +4,9 @@ from scrapy.pipelines.images import ImagesPipeline
 
 class ComicImagesPipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
-        yield scrapy.Request(item["image_url"], meta={"item": item})
+        yield scrapy.Request(item["image_url"])
 
-    def file_path(self, request, response=None, info=None):
-        item = request.meta["item"]
+    def file_path(self, request, response=None, info=None, *, item=None):
         return "{title}/{page}.{extension}".format(extension="jpg", **item)
 
 
